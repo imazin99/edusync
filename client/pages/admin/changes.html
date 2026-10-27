@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Schedule Changes — EduSync</title>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <script src="/js/theme-flash-fix.js"></script>
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/layout.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="app-header__brand">
+        <span class="brand-logo"><img src="/assets/edusync-logo.png" alt="EduSync" /></span>
+      </div>
+      <div class="app-header__actions">
+        <div class="app-header__user">
+          <span id="shell-user-name" class="app-header__user-name"></span>
+          <span id="shell-user-role" class="app-header__user-role badge"></span>
+        </div>
+        <button
+          type="button"
+          id="theme-toggle"
+          class="btn btn--secondary"
+          aria-label="Toggle dark mode"
+        >
+          <span id="theme-toggle-label">Dark mode</span>
+        </button>
+        <button type="button" id="shell-logout-btn" class="btn btn--secondary">Logout</button>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <aside class="app-sidebar">
+        <nav id="shell-sidebar-nav" aria-label="Main navigation"></nav>
+      </aside>
+
+      <main class="app-content">
+        <div class="container">
+          <div class="dashboard-section__header">
+            <h1>Schedule Changes</h1>
+          </div>
+          <p class="form-hint">
+            A history of every one-time and permanent change applied to a class. Pick a subject to
+            see its change history — the backend requires a subject or a specific session to look
+            this up (GET /api/schedule/changes has no "list everything" mode).
+          </p>
+
+          <div id="shell-page-alert" aria-live="polite"></div>
+
+          <div class="admin-toolbar">
+            <select class="form-input" id="subject-filter">
+              <option value="">Select a subject…</option>
+            </select>
+          </div>
+
+          <div id="list-alert" aria-live="polite"></div>
+
+          <div id="list-container"></div>
+        </div>
+      </main>
+    </div>
+
+    <nav id="shell-bottom-nav" class="bottom-nav" aria-label="Main navigation"></nav>
+  </div>
+
+  <script type="module" src="/js/pages/admin-changes.js"></script>
+</body>
+</html>

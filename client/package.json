@@ -1,0 +1,6 @@
+{
+  "name": "academic-schedule-client",
+  "private": true,
+  "type": "module",
+  "description": "Static HTML/CSS/vanilla-JS frontend. No build step: serve this folder as-is with any static file server. This file exists only so Node-based tooling (linters, future test scripts) correctly treats the .js files under js/ as ES modules — browsers already do, via <script type=\"module\">, regardless of this file."
+}

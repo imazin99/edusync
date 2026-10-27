@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Schedule — EduSync</title>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <script src="/js/theme-flash-fix.js"></script>
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/layout.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="app-header__brand">
+        <span class="brand-logo"><img src="/assets/edusync-logo.png" alt="EduSync" /></span>
+      </div>
+      <div class="app-header__actions">
+        <div class="app-header__user">
+          <span id="shell-user-name" class="app-header__user-name"></span>
+          <span id="shell-user-role" class="app-header__user-role badge"></span>
+        </div>
+        <button
+          type="button"
+          id="theme-toggle"
+          class="btn btn--secondary"
+          aria-label="Toggle dark mode"
+        >
+          <span id="theme-toggle-label">Dark mode</span>
+        </button>
+        <button type="button" id="shell-logout-btn" class="btn btn--secondary">Logout</button>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <aside class="app-sidebar">
+        <nav id="shell-sidebar-nav" aria-label="Main navigation"></nav>
+      </aside>
+
+      <main class="app-content">
+        <div class="container">
+          <h1>Schedule</h1>
+
+          <div id="shell-page-alert" aria-live="polite"></div>
+          <div class="schedule-week-nav">
+            <button type="button" id="week-prev" class="btn btn--secondary" aria-label="Previous week">
+              &lsaquo; Previous week
+            </button>
+            <div id="week-range-label" class="schedule-week-label" aria-live="polite"></div>
+            <button type="button" id="week-today" class="btn btn--secondary">This week</button>
+            <button type="button" id="week-next" class="btn btn--secondary" aria-label="Next week">
+              Next week &rsaquo;
+            </button>
+          </div>
+          
+          <div id="day-tabs" class="day-tabs" role="tablist" aria-label="Select a day"></div>
+
+          <div id="schedule-alert" aria-live="polite"></div>
+
+          <div id="schedule-week-grid" class="schedule-week-grid"></div>
+        </div>
+      </main>
+    </div>
+
+    <nav id="shell-bottom-nav" class="bottom-nav" aria-label="Main navigation"></nav>
+  </div>
+
+  <script type="module" src="/js/pages/student-schedule.js"></script>
+</body>
+</html>

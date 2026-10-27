@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Leaders — EduSync</title>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <script src="/js/theme-flash-fix.js"></script>
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/layout.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="app-header__brand">
+        <span class="brand-logo"><img src="/assets/edusync-logo.png" alt="EduSync" /></span>
+      </div>
+      <div class="app-header__actions">
+        <div class="app-header__user">
+          <span id="shell-user-name" class="app-header__user-name"></span>
+          <span id="shell-user-role" class="app-header__user-role badge"></span>
+        </div>
+        <button
+          type="button"
+          id="theme-toggle"
+          class="btn btn--secondary"
+          aria-label="Toggle dark mode"
+        >
+          <span id="theme-toggle-label">Dark mode</span>
+        </button>
+        <button type="button" id="shell-logout-btn" class="btn btn--secondary">Logout</button>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <aside class="app-sidebar">
+        <nav id="shell-sidebar-nav" aria-label="Main navigation"></nav>
+      </aside>
+
+      <main class="app-content">
+        <div class="container">
+          <div class="dashboard-section__header">
+            <h1>Leaders</h1>
+            <button type="button" id="create-btn" class="btn btn--primary">Add Leader</button>
+          </div>
+
+          <div id="shell-page-alert" aria-live="polite"></div>
+
+          <div class="admin-toolbar">
+            <select class="form-input" id="active-filter">
+              <option value="">All statuses</option>
+              <option value="true">Active</option>
+              <option value="false">Inactive</option>
+            </select>
+          </div>
+
+          <div id="list-alert" aria-live="polite"></div>
+
+          <div id="list-container"></div>
+        </div>
+      </main>
+    </div>
+
+    <nav id="shell-bottom-nav" class="bottom-nav" aria-label="Main navigation"></nav>
+  </div>
+
+  <div id="item-modal-backdrop" class="modal-backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="item-modal-title">
+      <h2 id="item-modal-title">Add Leader</h2>
+      <div id="item-form-alert" aria-live="polite"></div>
+      <form id="item-form" novalidate>
+        <div class="form-field">
+          <label class="form-label" for="field-slot">Slot</label>
+          <select class="form-input" id="field-slot" required>
+            <option value="MALE">Male</option>
+            <option value="FEMALE">Female</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="field-linkedStudentId">Linked Student (Student ID)</label>
+          <input class="form-input" type="text" id="field-linkedStudentId" required placeholder="Student's MongoDB id" />
+          <p class="form-hint">Find the id from the Students page (visible in that row's Edit link/URL).</p>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="field-username">Username</label>
+          <input class="form-input" type="text" id="field-username" required maxlength="100" />
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="field-password">Password</label>
+          <input class="form-input" type="password" id="field-password" required minlength="8" />
+        </div>
+        <div class="class-card__actions">
+          <button type="submit" class="btn btn--primary" id="item-form-submit">Create</button>
+          <button type="button" class="btn btn--secondary" id="item-form-cancel">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="reset-modal-backdrop" class="modal-backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="reset-modal-title">
+      <h2 id="reset-modal-title">Reset Password</h2>
+      <div id="reset-form-alert" aria-live="polite"></div>
+      <form id="reset-form" novalidate>
+        <div class="form-field">
+          <label class="form-label" for="reset-new-password">New Password</label>
+          <input class="form-input" type="password" id="reset-new-password" required minlength="8" />
+        </div>
+        <div class="class-card__actions">
+          <button type="submit" class="btn btn--primary" id="reset-form-submit">Reset Password</button>
+          <button type="button" class="btn btn--secondary" id="reset-form-cancel">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="/js/pages/admin-leaders.js"></script>
+</body>
+</html>

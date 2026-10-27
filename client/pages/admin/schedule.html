@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Schedule — EduSync</title>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <script src="/js/theme-flash-fix.js"></script>
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/layout.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="app-header__brand">
+        <span class="brand-logo"><img src="/assets/edusync-logo.png" alt="EduSync" /></span>
+      </div>
+      <div class="app-header__actions">
+        <div class="app-header__user">
+          <span id="shell-user-name" class="app-header__user-name"></span>
+          <span id="shell-user-role" class="app-header__user-role badge"></span>
+        </div>
+        <button
+          type="button"
+          id="theme-toggle"
+          class="btn btn--secondary"
+          aria-label="Toggle dark mode"
+        >
+          <span id="theme-toggle-label">Dark mode</span>
+        </button>
+        <button type="button" id="shell-logout-btn" class="btn btn--secondary">Logout</button>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <aside class="app-sidebar">
+        <nav id="shell-sidebar-nav" aria-label="Main navigation"></nav>
+      </aside>
+
+      <main class="app-content">
+        <div class="container">
+          <div class="dashboard-section__header">
+            <h1>Schedule</h1>
+            <button type="button" id="create-template-btn" class="btn btn--primary">New Recurring Class</button>
+          </div>
+          <p class="form-hint">
+            The official weekly schedule is built from recurring Templates below; each week's actual
+            classes are generated from them automatically. Changing a specific class here can be a
+            one-time exception or — Admin only — a permanent change to the template going forward.
+          </p>
+
+          <div id="shell-page-alert" aria-live="polite"></div>
+
+          <div class="schedule-week-nav">
+            <button type="button" id="week-prev" class="btn btn--secondary" aria-label="Previous week">&lsaquo; Previous week</button>
+            <div id="week-range-label" class="schedule-week-label" aria-live="polite"></div>
+            <button type="button" id="week-today" class="btn btn--secondary">This week</button>
+            <button type="button" id="week-next" class="btn btn--secondary" aria-label="Next week">Next week &rsaquo;</button>
+          </div>
+
+          <div id="day-tabs" class="day-tabs" role="tablist" aria-label="Select a day"></div>
+
+          <div id="schedule-alert" aria-live="polite"></div>
+
+          <div id="schedule-week-grid" class="schedule-week-grid"></div>
+        </div>
+      </main>
+    </div>
+
+    <nav id="shell-bottom-nav" class="bottom-nav" aria-label="Main navigation"></nav>
+  </div>
+
+  <div id="change-modal-backdrop" class="modal-backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="change-modal-title">
+      <h2 id="change-modal-title">Change Class</h2>
+      <div id="change-form-alert" aria-live="polite"></div>
+      <form id="change-form" novalidate>
+        <input type="hidden" id="change-session-id" />
+        <div class="form-field">
+          <label class="form-label" for="change-type">Change Type</label>
+          <select class="form-input" id="change-type">
+            <option value="ONE_TIME">One-time (this class only)</option>
+            <option value="PERMANENT">Permanent (going forward)</option>
+          </select>
+        </div>
+        <div class="form-grid">
+          <div class="form-field">
+            <label class="form-label" for="change-start-time">Start time</label>
+            <input class="form-input" type="time" id="change-start-time" required />
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="change-end-time">End time</label>
+            <input class="form-input" type="time" id="change-end-time" required />
+          </div>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="change-room">Room</label>
+          <select class="form-input" id="change-room"></select>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="change-status">Status</label>
+          <select class="form-input" id="change-status">
+            <option value="ACTIVE">Active</option>
+            <option value="CANCELLED">Cancelled</option>
+            <option value="ONLINE">Online</option>
+          </select>
+        </div>
+        <div class="form-field" id="change-dayOfWeek-wrap" hidden>
+          <label class="form-label" for="change-dayOfWeek">Day of Week</label>
+          <select class="form-input" id="change-dayOfWeek">
+            <option value="SATURDAY">Saturday</option>
+            <option value="SUNDAY">Sunday</option>
+            <option value="MONDAY">Monday</option>
+            <option value="TUESDAY">Tuesday</option>
+            <option value="WEDNESDAY">Wednesday</option>
+            <option value="THURSDAY">Thursday</option>
+          </select>
+        </div>
+        <div class="form-field" id="change-effectiveFrom-wrap" hidden>
+          <label class="form-label" for="change-effectiveFrom">Effective From</label>
+          <input class="form-input" type="date" id="change-effectiveFrom" />
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="change-reason">Reason</label>
+          <textarea class="form-input" id="change-reason" rows="3" maxlength="500"></textarea>
+        </div>
+        <div class="class-card__actions">
+          <button type="submit" class="btn btn--primary" id="change-form-submit">Submit Change</button>
+          <button type="button" class="btn btn--secondary" id="change-form-cancel">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="template-modal-backdrop" class="modal-backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="template-modal-title">
+      <h2 id="template-modal-title">New Recurring Class</h2>
+      <div id="template-form-alert" aria-live="polite"></div>
+      <form id="template-form" novalidate>
+        <div class="form-field">
+          <label class="form-label" for="tpl-subjectId">Subject</label>
+          <select class="form-input" id="tpl-subjectId" required></select>
+        </div>
+        <div class="form-grid">
+          <div class="form-field">
+            <label class="form-label" for="tpl-type">Type</label>
+            <select class="form-input" id="tpl-type">
+              <option value="LECTURE">Lecture</option>
+              <option value="SECTION">Section</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="tpl-group">Group</label>
+            <select class="form-input" id="tpl-group">
+              <option value="ALL">All students</option>
+              <option value="G1">G1</option>
+              <option value="G2">G2</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="tpl-dayOfWeek">Day of Week</label>
+          <select class="form-input" id="tpl-dayOfWeek">
+            <option value="SATURDAY">Saturday</option>
+            <option value="SUNDAY">Sunday</option>
+            <option value="MONDAY">Monday</option>
+            <option value="TUESDAY">Tuesday</option>
+            <option value="WEDNESDAY">Wednesday</option>
+            <option value="THURSDAY">Thursday</option>
+          </select>
+        </div>
+        <div class="form-grid">
+          <div class="form-field">
+            <label class="form-label" for="tpl-startTime">Start time</label>
+            <input class="form-input" type="time" id="tpl-startTime" required />
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="tpl-endTime">End time</label>
+            <input class="form-input" type="time" id="tpl-endTime" required />
+          </div>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="tpl-roomId">Room</label>
+          <select class="form-input" id="tpl-roomId" required></select>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="tpl-doctorId">Doctor</label>
+          <select class="form-input" id="tpl-doctorId" required></select>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="tpl-taId">TA (optional)</label>
+          <select class="form-input" id="tpl-taId"></select>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="tpl-effectiveFrom">Effective From (optional)</label>
+          <input class="form-input" type="date" id="tpl-effectiveFrom" />
+        </div>
+        <div class="class-card__actions">
+          <button type="submit" class="btn btn--primary" id="template-form-submit">Create</button>
+          <button type="button" class="btn btn--secondary" id="template-form-cancel">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="/js/pages/admin-schedule.js"></script>
+</body>
+</html>

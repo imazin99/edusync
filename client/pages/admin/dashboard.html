@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard — EduSync</title>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <script src="/js/theme-flash-fix.js"></script>
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/layout.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="app-header__brand">
+        <span class="brand-logo"><img src="/assets/edusync-logo.png" alt="EduSync" /></span>
+      </div>
+      <div class="app-header__actions">
+        <div class="app-header__user">
+          <span id="shell-user-name" class="app-header__user-name"></span>
+          <span id="shell-user-role" class="app-header__user-role badge"></span>
+        </div>
+        <button
+          type="button"
+          id="theme-toggle"
+          class="btn btn--secondary"
+          aria-label="Toggle dark mode"
+        >
+          <span id="theme-toggle-label">Dark mode</span>
+        </button>
+        <button type="button" id="shell-logout-btn" class="btn btn--secondary">Logout</button>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <aside class="app-sidebar">
+        <nav id="shell-sidebar-nav" aria-label="Main navigation"></nav>
+      </aside>
+
+      <main class="app-content">
+        <div class="container">
+          <h1>Dashboard</h1>
+
+          <div id="shell-page-alert" aria-live="polite"></div>
+          
+          <div id="stats-grid" class="stats-grid"></div>
+
+          <section class="dashboard-section" aria-labelledby="recent-changes-heading">
+            <div class="dashboard-section__header">
+              <h2 id="recent-changes-heading">Recent Schedule Changes</h2>
+              <a href="/pages/admin/changes.html" class="btn btn--secondary">View All</a>
+            </div>
+            <div id="recent-changes-section" class="dashboard-section__body"></div>
+          </section>
+
+          <section class="dashboard-section" aria-labelledby="recent-tasks-heading">
+            <div class="dashboard-section__header">
+              <h2 id="recent-tasks-heading">Recent Tasks</h2>
+              <a href="/pages/admin/tasks.html" class="btn btn--secondary">View All</a>
+            </div>
+            <div id="recent-tasks-section" class="dashboard-section__body"></div>
+          </section>
+
+          <section class="dashboard-section" aria-labelledby="recent-requests-heading">
+            <div class="dashboard-section__header">
+              <h2 id="recent-requests-heading">Recent Requests</h2>
+              <a href="/pages/admin/requests.html" class="btn btn--secondary">View All</a>
+            </div>
+            <div id="recent-requests-section" class="dashboard-section__body"></div>
+          </section>
+
+          <section class="dashboard-section" aria-labelledby="recent-activity-heading">
+            <div class="dashboard-section__header">
+              <h2 id="recent-activity-heading">Recent Activity</h2>
+              <a href="/pages/admin/audit-logs.html" class="btn btn--secondary">View All</a>
+            </div>
+            <div id="recent-activity-section" class="dashboard-section__body"></div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <nav id="shell-bottom-nav" class="bottom-nav" aria-label="Main navigation"></nav>
+  </div>
+
+  <script type="module" src="/js/pages/admin-dashboard.js"></script>
+</body>
+</html>

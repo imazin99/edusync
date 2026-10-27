@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Requests — EduSync</title>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <script src="/js/theme-flash-fix.js"></script>
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/layout.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="app-header__brand">
+        <span class="brand-logo"><img src="/assets/edusync-logo.png" alt="EduSync" /></span>
+      </div>
+      <div class="app-header__actions">
+        <div class="app-header__user">
+          <span id="shell-user-name" class="app-header__user-name"></span>
+          <span id="shell-user-role" class="app-header__user-role badge"></span>
+        </div>
+        <button
+          type="button"
+          id="theme-toggle"
+          class="btn btn--secondary"
+          aria-label="Toggle dark mode"
+        >
+          <span id="theme-toggle-label">Dark mode</span>
+        </button>
+        <button type="button" id="shell-logout-btn" class="btn btn--secondary">Logout</button>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <aside class="app-sidebar">
+        <nav id="shell-sidebar-nav" aria-label="Main navigation"></nav>
+      </aside>
+
+      <main class="app-content">
+        <div class="container">
+          <div class="dashboard-section__header">
+            <h1>Requests</h1>
+          </div>
+          <p class="form-hint">
+            Password Reset and Group Change requests submitted by students. Approving a Group
+            Change updates the student's group automatically; approving a Password Reset does not
+            change any password by itself — use Reset Password afterwards to actually set one.
+          </p>
+
+          <div id="shell-page-alert" aria-live="polite"></div>
+
+          <div class="admin-toolbar">
+            <select class="form-input" id="type-filter">
+              <option value="">All types</option>
+              <option value="PASSWORD_RESET">Password Reset</option>
+              <option value="GROUP_CHANGE">Group Change</option>
+            </select>
+            <select class="form-input" id="status-filter">
+              <option value="PENDING">Pending</option>
+              <option value="APPROVED">Approved</option>
+              <option value="REJECTED">Rejected</option>
+              <option value="">All statuses</option>
+            </select>
+          </div>
+
+          <div id="list-alert" aria-live="polite"></div>
+
+          <div id="list-container"></div>
+        </div>
+      </main>
+    </div>
+
+    <nav id="shell-bottom-nav" class="bottom-nav" aria-label="Main navigation"></nav>
+  </div>
+
+  <!-- Reset Password modal — POST /api/admin/users/:userId/reset-password -->
+  <div id="reset-modal-backdrop" class="modal-backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="reset-modal-title">
+      <h2 id="reset-modal-title">Reset Password</h2>
+      <div id="reset-form-alert" aria-live="polite"></div>
+      <form id="reset-form" novalidate>
+        <div class="form-field">
+          <label class="form-label" for="reset-new-password">New Password</label>
+          <input class="form-input" type="password" id="reset-new-password" required minlength="8" />
+        </div>
+        <div class="class-card__actions">
+          <button type="submit" class="btn btn--primary" id="reset-form-submit">Reset Password</button>
+          <button type="button" class="btn btn--secondary" id="reset-form-cancel">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="/js/pages/admin-requests.js"></script>
+</body>
+</html>

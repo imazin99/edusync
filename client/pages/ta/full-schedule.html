@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Full Schedule — EduSync</title>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <script src="/js/theme-flash-fix.js"></script>
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/layout.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="app-header__brand">
+        <span class="brand-logo"><img src="/assets/edusync-logo.png" alt="EduSync" /></span>
+      </div>
+      <div class="app-header__actions">
+        <div class="app-header__user">
+          <span id="shell-user-name" class="app-header__user-name"></span>
+          <span id="shell-user-role" class="app-header__user-role badge"></span>
+        </div>
+        <button
+          type="button"
+          id="theme-toggle"
+          class="btn btn--secondary"
+          aria-label="Toggle dark mode"
+        >
+          <span id="theme-toggle-label">Dark mode</span>
+        </button>
+        <button type="button" id="shell-logout-btn" class="btn btn--secondary">Logout</button>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <aside class="app-sidebar">
+        <nav id="shell-sidebar-nav" aria-label="Main navigation"></nav>
+      </aside>
+
+      <main class="app-content">
+        <div class="container">
+          <h1>Full Schedule</h1>
+          <p class="form-hint">
+            Every subject's classes, not only your own — see your subject's sessions here and propose
+            a one-time change where you have permission. Attempting to change a class outside your own
+            subject is rejected by the server.
+          </p>
+
+          <div id="shell-page-alert" aria-live="polite"></div>
+
+          <div class="schedule-week-nav">
+            <button type="button" id="week-prev" class="btn btn--secondary" aria-label="Previous week">
+              &lsaquo; Previous week
+            </button>
+            <div id="week-range-label" class="schedule-week-label" aria-live="polite"></div>
+            <button type="button" id="week-today" class="btn btn--secondary">This week</button>
+            <button type="button" id="week-next" class="btn btn--secondary" aria-label="Next week">
+              Next week &rsaquo;
+            </button>
+          </div>
+
+          <div id="day-tabs" class="day-tabs" role="tablist" aria-label="Select a day"></div>
+
+          <div id="schedule-alert" aria-live="polite"></div>
+
+          <div id="schedule-week-grid" class="schedule-week-grid"></div>
+        </div>
+      </main>
+    </div>
+
+    <nav id="shell-bottom-nav" class="bottom-nav" aria-label="Main navigation"></nav>
+  </div>
+  <div id="change-modal-backdrop" class="modal-backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="change-modal-title">
+      <h2 id="change-modal-title">Propose a One-Time Change</h2>
+      <div id="change-form-alert" aria-live="polite"></div>
+      <form id="change-form" novalidate>
+        <input type="hidden" id="change-session-id" />
+        <div class="form-field">
+          <label class="form-label" for="change-start-time">Start time</label>
+          <input class="form-input" type="time" id="change-start-time" name="startTime" required />
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="change-end-time">End time</label>
+          <input class="form-input" type="time" id="change-end-time" name="endTime" required />
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="change-room">Room</label>
+          <select class="form-input" id="change-room" name="roomId"></select>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="change-status">Status</label>
+          <select class="form-input" id="change-status" name="status">
+            <option value="ACTIVE">Active</option>
+            <option value="CANCELLED">Cancelled</option>
+            <option value="ONLINE">Online</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="change-reason">Reason</label>
+          <textarea class="form-input" id="change-reason" name="reason" rows="3" maxlength="500"></textarea>
+        </div>
+        <div class="class-card__actions">
+          <button type="submit" class="btn btn--primary" id="change-form-submit">Submit Change</button>
+          <button type="button" class="btn btn--secondary" id="change-form-cancel">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="/js/pages/ta-full-schedule.js"></script>
+</body>
+</html>

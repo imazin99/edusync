@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tasks — EduSync</title>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <script src="/js/theme-flash-fix.js"></script>
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/layout.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="app-header__brand">
+        <span class="brand-logo"><img src="/assets/edusync-logo.png" alt="EduSync" /></span>
+      </div>
+      <div class="app-header__actions">
+        <div class="app-header__user">
+          <span id="shell-user-name" class="app-header__user-name"></span>
+          <span id="shell-user-role" class="app-header__user-role badge"></span>
+        </div>
+        <button
+          type="button"
+          id="theme-toggle"
+          class="btn btn--secondary"
+          aria-label="Toggle dark mode"
+        >
+          <span id="theme-toggle-label">Dark mode</span>
+        </button>
+        <button type="button" id="shell-logout-btn" class="btn btn--secondary">Logout</button>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <aside class="app-sidebar">
+        <nav id="shell-sidebar-nav" aria-label="Main navigation"></nav>
+      </aside>
+
+      <main class="app-content">
+        <div class="container">
+          <h1>Tasks</h1>
+
+          <div id="shell-page-alert" aria-live="polite"></div>
+
+          <div id="task-filters" class="task-filters" role="tablist" aria-label="Filter tasks">
+            <button type="button" class="filter-tab" id="filter-tab-ALL" data-filter="ALL" role="tab">All</button>
+            <button type="button" class="filter-tab" id="filter-tab-ACTIVE" data-filter="ACTIVE" role="tab">Active</button>
+            <button type="button" class="filter-tab" id="filter-tab-DUE_SOON" data-filter="DUE_SOON" role="tab">Due Soon</button>
+            <button type="button" class="filter-tab" id="filter-tab-COMPLETED" data-filter="COMPLETED" role="tab">Completed</button>
+            <button type="button" class="filter-tab" id="filter-tab-OVERDUE" data-filter="OVERDUE" role="tab">Overdue</button>
+          </div>
+
+          <div id="tasks-alert" aria-live="polite"></div>
+
+          <div id="tasks-list" class="task-card-list"></div>
+        </div>
+      </main>
+    </div>
+
+    <nav id="shell-bottom-nav" class="bottom-nav" aria-label="Main navigation"></nav>
+  </div>
+
+  <script type="module" src="/js/pages/student-tasks.js"></script>
+</body>
+</html>

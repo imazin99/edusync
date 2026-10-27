@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard — EduSync</title>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <script src="/js/theme-flash-fix.js"></script>
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/layout.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="app-header__brand">
+        <span class="brand-logo"><img src="/assets/edusync-logo.png" alt="EduSync" /></span>
+      </div>
+      <div class="app-header__actions">
+        <div class="app-header__user">
+          <span id="shell-user-name" class="app-header__user-name"></span>
+          <span id="shell-user-role" class="app-header__user-role badge"></span>
+        </div>
+        <button
+          type="button"
+          id="theme-toggle"
+          class="btn btn--secondary"
+          aria-label="Toggle dark mode"
+        >
+          <span id="theme-toggle-label">Dark mode</span>
+        </button>
+        <button type="button" id="shell-logout-btn" class="btn btn--secondary">Logout</button>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <aside class="app-sidebar">
+        <nav id="shell-sidebar-nav" aria-label="Main navigation"></nav>
+      </aside>
+
+      <main class="app-content">
+        <div class="container">
+          <h1>Dashboard</h1>
+
+          <div id="shell-page-alert" aria-live="polite"></div>
+          <section class="dashboard-section" aria-labelledby="today-schedule-heading">
+            <div class="dashboard-section__header">
+              <h2 id="today-schedule-heading">Today's Schedule</h2>
+              <a href="/pages/leader/schedule.html" class="btn btn--secondary">View Schedule</a>
+            </div>
+            <div id="today-schedule-section" class="dashboard-section__body schedule-grid"></div>
+          </section>
+
+          <section class="dashboard-section" aria-labelledby="tasks-heading">
+            <div class="dashboard-section__header">
+              <h2 id="tasks-heading">Tasks</h2>
+              <span id="tasks-summary" class="dashboard-section__summary"></span>
+              <a href="/pages/leader/tasks.html" class="btn btn--secondary">Manage Tasks</a>
+            </div>
+            <div id="tasks-section" class="dashboard-section__body task-list"></div>
+          </section>
+
+          <section class="dashboard-section" aria-labelledby="notifications-heading">
+            <div class="dashboard-section__header">
+              <h2 id="notifications-heading">Notifications</h2>
+              <span id="notifications-summary" class="dashboard-section__summary"></span>
+              <button type="button" id="notifications-mark-all-read" class="btn btn--secondary" disabled>
+                Mark All as Read
+              </button>
+            </div>
+            <div id="notifications-section" class="dashboard-section__body notification-list"></div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <nav id="shell-bottom-nav" class="bottom-nav" aria-label="Main navigation"></nav>
+  </div>
+
+  <script type="module" src="/js/pages/leader-dashboard.js"></script>
+</body>
+</html>

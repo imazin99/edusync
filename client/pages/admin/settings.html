@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Settings — EduSync</title>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <script src="/js/theme-flash-fix.js"></script>
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/layout.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="app-header__brand">
+        <span class="brand-logo"><img src="/assets/edusync-logo.png" alt="EduSync" /></span>
+      </div>
+      <div class="app-header__actions">
+        <div class="app-header__user">
+          <span id="shell-user-name" class="app-header__user-name"></span>
+          <span id="shell-user-role" class="app-header__user-role badge"></span>
+        </div>
+        <button
+          type="button"
+          id="theme-toggle"
+          class="btn btn--secondary"
+          aria-label="Toggle dark mode"
+        >
+          <span id="theme-toggle-label">Dark mode</span>
+        </button>
+        <button type="button" id="shell-logout-btn" class="btn btn--secondary">Logout</button>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <aside class="app-sidebar">
+        <nav id="shell-sidebar-nav" aria-label="Main navigation"></nav>
+      </aside>
+
+      <main class="app-content">
+        <div class="container">
+          <h1>Settings</h1>
+          <p class="form-hint">
+            System-wide settings. Only the fields below are supported —
+            SettingsService.update rejects any other field (no schema-free
+            "other settings" editor exists here, matching the backend's
+            own deliberately narrow allow-list).
+          </p>
+
+          <div id="shell-page-alert" aria-live="polite"></div>
+          <div id="settings-alert" aria-live="polite"></div>
+
+          <form id="settings-form" novalidate>
+            <div class="form-field">
+              <label class="form-label" for="field-maintenanceMode">
+                <input type="checkbox" id="field-maintenanceMode" />
+                Maintenance mode
+              </label>
+              <p class="form-hint">When enabled, non-Admin requests are blocked with the message below.</p>
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="field-maintenanceMessage">Maintenance message</label>
+              <textarea class="form-input" id="field-maintenanceMessage" rows="3" maxlength="500"></textarea>
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="field-currentAcademicTerm">Current academic term</label>
+              <input class="form-input" type="text" id="field-currentAcademicTerm" maxlength="100" />
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="field-notificationRetentionDays">Notification retention (days)</label>
+              <input class="form-input" type="number" id="field-notificationRetentionDays" min="1" step="1" />
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="field-weekOffDay">Week off day</label>
+              <select class="form-input" id="field-weekOffDay">
+                <option value="">None</option>
+                <option value="SATURDAY">Saturday</option>
+                <option value="SUNDAY">Sunday</option>
+                <option value="MONDAY">Monday</option>
+                <option value="TUESDAY">Tuesday</option>
+                <option value="WEDNESDAY">Wednesday</option>
+                <option value="THURSDAY">Thursday</option>
+              </select>
+            </div>
+            <div class="class-card__actions">
+              <button type="submit" class="btn btn--primary" id="settings-form-submit">Save Settings</button>
+            </div>
+          </form>
+        </div>
+      </main>
+    </div>
+
+    <nav id="shell-bottom-nav" class="bottom-nav" aria-label="Main navigation"></nav>
+  </div>
+
+  <script type="module" src="/js/pages/admin-settings.js"></script>
+</body>
+</html>
