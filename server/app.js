@@ -26,6 +26,12 @@ const { notFoundHandler, errorHandler } = require('./middleware/errorHandler');
 
 require('./models');
 
+// التحقق من المتغيرات والاتصال أوتوماتيك لبيئة Vercel / Local
+validateEnv();
+connectDatabase().catch((err) => {
+  console.error('[database] Initial Atlas connection error:', err);
+});
+
 function createApp() {
   const app = express();
 
@@ -34,7 +40,7 @@ function createApp() {
   app.use(helmet());
   app.use(
     cors({
-      origin: env.corsOrigin.split(',').map((o) => o.trim()),
+      origin: env.corsOrigin ? env.corsOrigin.split(',').map((o) => o.trim()) : '*',
       credentials: true,
     })
   );
@@ -51,6 +57,11 @@ function createApp() {
     legacyHeaders: false,
   });
   app.use('/api', apiLimiter);
+
+  // Health check test route
+  app.get('/', (req, res) => {
+    res.send('EduSync API is running successfully on Vercel!');
+  });
 
   app.use(
     express.static(path.join(__dirname, '../client'), {
@@ -80,25 +91,9 @@ function createApp() {
   return app;
 }
 
+const app = createApp();
+
 async function start() {
-  validateEnv();
-
-  const app = createApp();
-
-  try {
-    await connectDatabase();
-  } catch (err) {
-    console.error(
-      '[startup] Could not connect to MongoDB on startup. ' +
-        'The server will still start so /api/health can report the outage, ' +
-        'but most functionality will not work until the database is reachable.'
-    );
-  }
-
-app.get('/', (req, res) => {
-  res.send('EduSync API is running successfully on Vercel!');
-});
-
   const server = app.listen(env.port, () => {
     console.log(`[server] Listening on port ${env.port} (${env.nodeEnv})`);
   });
@@ -139,4 +134,7 @@ if (require.main === module) {
   });
 }
 
-module.exports = { createApp, start };
+// إرجاع app المباشر لـ Vercel
+module.exports = app;
+module.exports.createApp = createApp;
+module.exports.start = start;
