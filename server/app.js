@@ -58,10 +58,10 @@ function createApp() {
   });
   app.use('/api', apiLimiter);
 
-  // Health check test route
-  app.get('/', (req, res) => {
-    res.send('EduSync API is running successfully on Vercel!');
-  });
+  //  Health check test route
+  // app.get('/', (req, res) => {
+  //   res.send('EduSync API is running successfully on Vercel!');
+  // });
 
   app.use(
     express.static(path.join(__dirname, '../client'), {
@@ -84,7 +84,10 @@ function createApp() {
   app.use('/api/notifications', notificationsRoutes);
   app.use('/api/requests', requestsRoutes);
   app.use('/api/admin', adminRoutes);
-
+  app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api')) return next();
+  res.sendFile(path.join(__dirname, '../client/index.html'));
+});
   app.use(notFoundHandler);
   app.use(errorHandler);
 
