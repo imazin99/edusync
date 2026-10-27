@@ -73,25 +73,10 @@ function createApp() {
   app.use('/api/requests', requestsRoutes);
   app.use('/api/admin', adminRoutes);
 
-  // إعداد ملفات الفرونت إند الـ Static
-  const clientPath = path.join(process.cwd(), 'client');
-  app.use(
-    express.static(clientPath, {
-      setHeaders: (res) => {
-        res.setHeader('Cache-Control', 'no-cache');
-      },
-    })
-  );
-
-  // التوجيه التلقائي لصفحة login.html عند فتح الموقع أو أي route مش API
-  app.get('*', (req, res, next) => {
-    if (req.path.startsWith('/api')) return next();
-    res.sendFile(path.join(clientPath, 'login.html'));
-  });
-
-  // معالجة الأخطاء
+  // معالجة الأخطاء للـ API فقط
   app.use(notFoundHandler);
   app.use(errorHandler);
+
 
   return app;
 }
