@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign in — EduSync</title>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <script src="/js/theme-flash-fix.js"></script>
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/layout.css" />
+</head>
+<body>
+  <main class="auth-page">
+    <div class="auth-card card">
+      <div class="auth-card__header">
+        <h1 class="brand-logo">
+          <img src="/assets/edusync-logo.png" alt="EduSync" />
+        </h1>
+        <p>Sign in to continue</p>
+      </div>
+
+      <div id="form-alert" aria-live="polite"></div>
+      
+      <form id="login-form" method="post" novalidate>
+        <div class="form-field">
+          <label class="form-label" for="identifier">Student Code or Username</label>
+          <input
+            class="form-input"
+            type="text"
+            id="identifier"
+            name="identifier"
+            autocomplete="username"
+            required
+            aria-describedby="identifier-hint"
+          />
+          <p class="form-hint" id="identifier-hint">
+            Students: enter your Student Code. Staff: enter your username.
+          </p>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="password">
+            Password <span class="form-hint">(leave blank if you haven't set one yet)</span>
+          </label>
+          <input
+            class="form-input"
+            type="password"
+            id="password"
+            name="password"
+            autocomplete="current-password"
+          />
+        </div>
+
+        <button class="btn btn--primary btn--block" type="submit" id="submit-btn">
+          Sign in
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <button
+    type="button"
+    id="theme-toggle"
+    class="btn btn--secondary"
+    style="position: fixed; bottom: var(--space-4); right: var(--space-4);"
+    aria-label="Toggle dark mode"
+  >
+    <span id="theme-toggle-label">Dark mode</span>
+  </button>
+
+  <script type="module" src="/js/pages/login.js"></script>
+</body>
+</html>
