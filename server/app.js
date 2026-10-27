@@ -95,6 +95,10 @@ async function start() {
     );
   }
 
+app.get('/', (req, res) => {
+  res.send('EduSync API is running successfully on Vercel!');
+});
+
   const server = app.listen(env.port, () => {
     console.log(`[server] Listening on port ${env.port} (${env.nodeEnv})`);
   });
